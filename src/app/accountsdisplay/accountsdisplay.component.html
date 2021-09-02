@@ -1,0 +1,47 @@
+<div class="card">
+    <div class="card-header">
+        {{pagetitle}}
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Account List</th>
+                        <th>Account Type</th>
+                        <th>Balance</th>
+                        <th> Account Options </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let item of listOfAccounts'>
+                        <td> {{item.account_number}} </td>
+                        <td> {{item.account_type}} </td>
+                        <td> {{item.balance | currency: 'R '}} </td>
+                        <td *ngIf="!isWithDrawable(item)">
+                            <button [disabled]='false' (click)="withdraw(item)" class="btn btn-primary"> Withdraw
+                            </button>
+                        </td>
+
+                        <td *ngIf="isWithDrawable(item)">
+                            <button [disabled]='true' (click)="withdraw(item)" class="btn btn-default"> Withdraw
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <div class="card-footer">
+                            <div style="display: inline-block;">
+                                <h4>Balance</h4>
+                            </div>
+                            <div style="float:right">
+                                <h4> {{totalBalance | currency:'R ' }}</h4>
+                            </div>
+                        </div>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
